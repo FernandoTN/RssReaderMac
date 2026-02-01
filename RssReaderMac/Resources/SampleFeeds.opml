@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+    <head>
+        <title>Sample Feeds</title>
+    </head>
+    <body>
+        <outline text="Simon Willison" title="Simon Willison" type="rss"
+            xmlUrl="https://simonwillison.net/atom/everything/"
+            htmlUrl="https://simonwillison.net/"/>
+        <outline text="Daring Fireball" title="Daring Fireball" type="rss"
+            xmlUrl="https://daringfireball.net/feeds/main"
+            htmlUrl="https://daringfireball.net/"/>
+        <outline text="Paul Graham" title="Paul Graham" type="rss"
+            xmlUrl="http://www.aaronsw.com/2002/feeds/pgessays.rss"
+            htmlUrl="http://www.paulgraham.com/"/>
+        <outline text="Overreacted" title="Overreacted" type="rss"
+            xmlUrl="https://overreacted.io/rss.xml"
+            htmlUrl="https://overreacted.io/"/>
+        <outline text="Krebs on Security" title="Krebs on Security" type="rss"
+            xmlUrl="https://krebsonsecurity.com/feed/"
+            htmlUrl="https://krebsonsecurity.com/"/>
+        <outline text="The Old New Thing" title="The Old New Thing" type="rss"
+            xmlUrl="https://devblogs.microsoft.com/oldnewthing/feed"
+            htmlUrl="https://devblogs.microsoft.com/oldnewthing/"/>
+        <outline text="Pluralistic" title="Pluralistic" type="rss"
+            xmlUrl="https://pluralistic.net/feed/"
+            htmlUrl="https://pluralistic.net/"/>
+        <outline text="matklad" title="matklad" type="rss"
+            xmlUrl="https://matklad.github.io/feed.xml"
+            htmlUrl="https://matklad.github.io/"/>
+        <outline text="Rachel by the Bay" title="Rachel by the Bay" type="rss"
+            xmlUrl="https://rachelbythebay.com/w/atom.xml"
+            htmlUrl="https://rachelbythebay.com/"/>
+        <outline text="Troy Hunt" title="Troy Hunt" type="rss"
+            xmlUrl="https://www.troyhunt.com/rss/"
+            htmlUrl="https://www.troyhunt.com/"/>
+    </body>
+</opml>
