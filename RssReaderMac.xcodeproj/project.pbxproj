@@ -11,6 +11,10 @@
 		A1000003233333330001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000004233333330001 /* ContentView.swift */; };
 		A1000005233333330001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000006233333330001 /* Assets.xcassets */; };
 		A1000007233333330001 /* RssReaderMacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000008233333330001 /* RssReaderMacTests.swift */; };
+		A1000060233333330001 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000061233333330001 /* AppSettings.swift */; };
+		A1000062233333330001 /* FontSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000063233333330001 /* FontSettingsView.swift */; };
+		A1000064233333330001 /* ReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000065233333330001 /* ReadingView.swift */; };
+		A1000066233333330001 /* ReadingViewToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000067233333330001 /* ReadingViewToolbar.swift */; };
 		A1000032233333330001 /* ModelContainerSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000033233333330001 /* ModelContainerSetup.swift */; };
 		A1000034233333330001 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000035233333330001 /* Article.swift */; };
 		A1000036233333330001 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000037233333330001 /* Feed.swift */; };
@@ -78,6 +82,10 @@
 		A100005B233333330001 /* ReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderView.swift; sourceTree = "<group>"; };
 		A100005D233333330001 /* ReaderToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderToolbar.swift; sourceTree = "<group>"; };
 		A100005F233333330001 /* EmptyReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyReaderView.swift; sourceTree = "<group>"; };
+		A1000061233333330001 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		A1000063233333330001 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
+		A1000065233333330001 /* ReadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingView.swift; sourceTree = "<group>"; };
+		A1000067233333330001 /* ReadingViewToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingViewToolbar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +152,7 @@
 				A1000033233333330001 /* ModelContainerSetup.swift */,
 				A1000047233333330001 /* AppCommands.swift */,
 				A1000049233333330001 /* KeyboardShortcuts.swift */,
+				A1000061233333330001 /* AppSettings.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -165,6 +174,7 @@
 				A100001C233333330001 /* ArticleList */,
 				A100001D233333330001 /* Reader */,
 				A100001E233333330001 /* Onboarding */,
+				A1000068233333330001 /* Settings */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -219,6 +229,8 @@
 				A100005B233333330001 /* ReaderView.swift */,
 				A100005D233333330001 /* ReaderToolbar.swift */,
 				A100005F233333330001 /* EmptyReaderView.swift */,
+				A1000065233333330001 /* ReadingView.swift */,
+				A1000067233333330001 /* ReadingViewToolbar.swift */,
 			);
 			path = Reader;
 			sourceTree = "<group>";
@@ -229,6 +241,14 @@
 				A1000043233333330001 /* WelcomeView.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		A1000068233333330001 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				A1000063233333330001 /* FontSettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,6 +383,10 @@
 				A100005A233333330001 /* ReaderView.swift in Sources */,
 				A100005C233333330001 /* ReaderToolbar.swift in Sources */,
 				A100005E233333330001 /* EmptyReaderView.swift in Sources */,
+				A1000060233333330001 /* AppSettings.swift in Sources */,
+				A1000062233333330001 /* FontSettingsView.swift in Sources */,
+				A1000064233333330001 /* ReadingView.swift in Sources */,
+				A1000066233333330001 /* ReadingViewToolbar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

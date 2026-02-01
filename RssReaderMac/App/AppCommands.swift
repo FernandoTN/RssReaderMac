@@ -12,6 +12,9 @@ extension Notification.Name {
 
     /// Posted when the user requests to export feeds to OPML
     static let exportOPML = Notification.Name("exportOPML")
+
+    /// Posted when the user requests to open the reading view for the current article
+    static let openReadingView = Notification.Name("openReadingView")
 }
 
 // MARK: - App Commands
@@ -40,6 +43,11 @@ struct AppCommands: Commands {
                 NotificationCenter.default.post(name: .refreshFeeds, object: nil)
             }
             .keyboardShortcut("r", modifiers: .command)
+
+            Button("Open Reading View") {
+                NotificationCenter.default.post(name: .openReadingView, object: nil)
+            }
+            .keyboardShortcut("r", modifiers: [.command, .shift])
 
             Divider()
         }

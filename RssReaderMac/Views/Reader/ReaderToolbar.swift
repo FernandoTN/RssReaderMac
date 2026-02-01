@@ -5,7 +5,9 @@ import SwiftUI
 struct ReaderToolbar: ToolbarContent {
     @Bindable var article: Article
     @Binding var readerMode: Bool
+    @Binding var showFontSettings: Bool
     var onToggleReaderMode: () -> Void
+    var onOpenReadingView: () -> Void
 
     var body: some ToolbarContent {
         ToolbarItemGroup {
@@ -19,6 +21,23 @@ struct ReaderToolbar: ToolbarContent {
                 )
             }
             .help(readerMode ? "Show original summary" : "Load full article content")
+
+            // Open in Reading View
+            Button {
+                onOpenReadingView()
+            } label: {
+                Label("Reading View", systemImage: "arrow.up.left.and.arrow.down.right")
+            }
+            .keyboardShortcut("r", modifiers: [.command, .shift])
+            .help("Open in immersive reading view")
+
+            // Font settings
+            Button {
+                showFontSettings.toggle()
+            } label: {
+                Label("Text Settings", systemImage: "textformat.size")
+            }
+            .help("Customize text appearance")
 
             // Star toggle
             Button {
@@ -54,6 +73,7 @@ struct ReaderToolbar: ToolbarContent {
 #Preview {
     struct PreviewWrapper: View {
         @State private var readerMode = false
+        @State private var showFontSettings = false
 
         var body: some View {
             let article = Article(
@@ -69,9 +89,11 @@ struct ReaderToolbar: ToolbarContent {
                         ReaderToolbar(
                             article: article,
                             readerMode: $readerMode,
+                            showFontSettings: $showFontSettings,
                             onToggleReaderMode: {
                                 readerMode.toggle()
-                            }
+                            },
+                            onOpenReadingView: {}
                         )
                     }
             }

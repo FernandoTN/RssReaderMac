@@ -9,6 +9,9 @@ struct RssReaderMacApp: App {
     /// The model container for SwiftData persistence
     private let modelContainer: ModelContainer
 
+    /// App-wide settings for font customization
+    @State private var settings = AppSettings()
+
     /// Whether to show the welcome view for first-time users
     @State private var showWelcome: Bool
 
@@ -35,11 +38,27 @@ struct RssReaderMacApp: App {
                 }
             }
             .modelContainer(modelContainer)
+            .environment(settings)
         }
         .commands {
             AppCommands()
         }
         .windowStyle(.automatic)
         .windowToolbarStyle(.unified)
+
+        // Reading View window for immersive reading
+        WindowGroup("Reading View", for: UUID.self) { $articleId in
+            ReadingViewWindow(articleId: articleId)
+                .modelContainer(modelContainer)
+                .environment(settings)
+        }
+        .windowStyle(.hiddenTitleBar)
+        .defaultSize(width: 800, height: 900)
+
+        // Settings window
+        Settings {
+            FontSettingsView()
+                .environment(settings)
+        }
     }
 }

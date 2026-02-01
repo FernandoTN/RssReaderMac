@@ -1,13 +1,40 @@
 import SwiftUI
 import SwiftData
 
-/// Main reader view for displaying article content.
-/// Supports both summary view and full reader mode with extracted content.
-struct ReaderView: View {
+/// Wrapper view that fetches the article for the Reading View window.
+struct ReadingViewWindow: View {
+    let articleId: UUID?
+
+    @Query private var articles: [Article]
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        if let articleId, let article = articles.first(where: { $0.id == articleId }) {
+            ReadingView(article: article)
+        } else {
+            ContentUnavailableView(
+                "Article Not Found",
+                systemImage: "doc.questionmark",
+                description: Text("The article could not be loaded.")
+            )
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Close") {
+                        dismiss()
+                    }
+                    .keyboardShortcut(.escape, modifiers: [])
+                }
+            }
+        }
+    }
+}
+
+/// Dedicated immersive reading view for distraction-free reading.
+struct ReadingView: View {
     @Bindable var article: Article
     @Environment(AppSettings.self) private var settings
+    @Environment(\.dismiss) private var dismiss
 
-    @State private var readerMode = false
     @State private var isLoadingFullContent = false
     @State private var loadError: String?
     @State private var showFontSettings = false
@@ -16,11 +43,10 @@ struct ReaderView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 20) {
                 // Title
                 Text(article.title)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+                    .font(settings.titleFont)
                     .textSelection(.enabled)
 
                 // Metadata
@@ -58,7 +84,7 @@ struct ReaderView: View {
                         ProgressView("Loading full content...")
                         Spacer()
                     }
-                    .padding(.vertical, 40)
+                    .padding(.vertical, 60)
                 } else if let error = loadError {
                     VStack(spacing: 12) {
                         Image(systemName: "exclamationmark.triangle")
@@ -73,7 +99,7 @@ struct ReaderView: View {
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 40)
+                    .padding(.vertical, 60)
                 } else {
                     Text(displayContent)
                         .font(settings.bodyFont)
@@ -89,40 +115,29 @@ struct ReaderView: View {
                 }
                 .padding(.top, 8)
             }
-            .padding(32)
-            .frame(maxWidth: 700, alignment: .leading)
+            .padding(48)
+            .frame(maxWidth: 750, alignment: .leading)
             .frame(maxWidth: .infinity)
         }
-        .onAppear {
-            article.isRead = true
-        }
         .toolbar {
-            ReaderToolbar(
+            ReadingViewToolbar(
                 article: article,
-                readerMode: $readerMode,
-                showFontSettings: $showFontSettings,
-                onToggleReaderMode: {
-                    Task {
-                        await handleReaderModeToggle()
-                    }
-                },
-                onOpenReadingView: {
-                    openWindow(value: article.id)
-                }
+                showFontSettings: $showFontSettings
             )
         }
         .popover(isPresented: $showFontSettings) {
             FontSettingsView()
                 .frame(width: 350, height: 300)
         }
+        .task {
+            await loadContentIfNeeded()
+        }
     }
-
-    @Environment(\.openWindow) private var openWindow
 
     // MARK: - Private Properties
 
     private var displayContent: String {
-        if readerMode, let fullContent = article.fullContent {
+        if let fullContent = article.fullContent {
             return fullContent
         } else if let content = article.content {
             return stripBasicHTML(from: content)
@@ -133,16 +148,10 @@ struct ReaderView: View {
 
     // MARK: - Private Methods
 
-    private func handleReaderModeToggle() async {
-        if !readerMode {
-            // Turning on reader mode
-            if article.fullContent == nil {
-                await loadFullContent()
-            }
-            readerMode = true
-        } else {
-            // Turning off reader mode
-            readerMode = false
+    private func loadContentIfNeeded() async {
+        // Auto-load full content for reading view if not already loaded
+        if article.fullContent == nil {
+            await loadFullContent()
         }
     }
 
@@ -164,7 +173,7 @@ struct ReaderView: View {
         }
     }
 
-    /// Strips basic HTML tags from content for display in non-reader mode.
+    /// Strips basic HTML tags from content for display.
     private func stripBasicHTML(from html: String) -> String {
         var result = html
 
@@ -212,15 +221,15 @@ struct ReaderView: View {
 }
 
 #Preview {
-    @Previewable @State var article = Article(
-        title: "Sample Article Title That Might Be Quite Long",
+    let article = Article(
+        title: "Sample Article Title for Reading View",
         url: URL(string: "https://example.com/article")!,
-        content: "<p>This is some <strong>sample</strong> content with HTML tags.</p><p>It has multiple paragraphs and formatting.</p>",
-        author: "John Doe",
+        content: "<p>This is sample content for the reading view.</p><p>It should display in an immersive, distraction-free format with larger padding and customizable fonts.</p>",
+        author: "Jane Doe",
         publishedDate: Date()
     )
 
-    ReaderView(article: article)
+    ReadingView(article: article)
         .environment(AppSettings())
         .modelContainer(for: [Article.self, Feed.self], inMemory: true)
         .frame(width: 800, height: 600)
