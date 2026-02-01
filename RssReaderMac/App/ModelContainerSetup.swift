@@ -17,10 +17,11 @@ enum ModelContainerSetup {
                 isStoredInMemoryOnly: true
             )
         } else {
+            // Use local storage only for now
+            // CloudKit sync can be enabled later with proper signing
             configuration = ModelConfiguration(
                 schema: schema,
-                isStoredInMemoryOnly: false,
-                cloudKitDatabase: .private("iCloud.com.rssreader.mac")
+                isStoredInMemoryOnly: false
             )
         }
 
